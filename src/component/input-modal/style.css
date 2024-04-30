@@ -1,0 +1,89 @@
+/* style.css */
+
+.app-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5vh;
+}
+
+.upload-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+}
+
+.upload-label {
+  font-size: 34px;
+  color: black;
+}
+
+.next-button {
+  background-color: #3498db;
+  color: #000;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.next-button:hover {
+  background-color: #2980b9;
+}
+
+.file-input-container {
+  display: inline-block;
+  background-color: #3498db;
+  color: #000;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.file-input {
+  display: none;
+}
+
+.loading {
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background-color: rgba(0, 0, 0, .5);
+}
+
+.loading-wheel {
+  width: 20px;
+  height: 20px;
+  margin-top: -40px;
+  margin-left: -40px;
+
+  position: absolute;
+  top: 50%;
+  left: 50%;
+
+  border-width: 30px;
+  border-radius: 50%;
+  -webkit-animation: spin 1s linear infinite;
+}
+
+.style-2 .loading-wheel {
+  border-style: double;
+  border-color: #ccc transparent;
+}
+
+@-webkit-keyframes spin {
+  0% {
+    -webkit-transform: rotate(0);
+  }
+
+  100% {
+    -webkit-transform: rotate(-360deg);
+  }
+}
