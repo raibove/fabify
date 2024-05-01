@@ -1,13 +1,15 @@
 import React, { useState } from 'react';
 import './style.css';
 import UploadFileButton from '../upload';
-import { Clothing, getBase64Image, parseClothingData, processBase64, run } from '../../utils';
+import { Clothing, DetailClothing, getBase64Image, getComplementOutfit, parseClothingData, processBase64, processComplementOutfit, run } from '../../utils';
 
 const InputModal: React.FC = () => {
   const [loading, setLoading] = useState<boolean>(false);
   const [image, setImage] = useState('');
   const [step, setStep] = useState<'upload' | 'select' | 'result'>('upload');
-  const [result, setResult] = useState<Clothing[]>([]);
+  const [clothesInImg, setClothesInImg] = useState<Clothing[]>([]);
+  const [selectedClothIndex, setSelectedClothIndex] = useState<number>(-1);
+  const [complementOutfit, setComplementOutfit] = useState<DetailClothing[]>([]);
 
   const handleFileUpload = async (file: File) => {
     try {
@@ -17,7 +19,7 @@ const InputModal: React.FC = () => {
       const result = parseClothingData(text)
       setImage(base64);
       setStep('select')
-      setResult(result);
+      setClothesInImg(result);
       console.log('<< res', result)
     } catch (e) {
       console.log(e)
@@ -26,10 +28,17 @@ const InputModal: React.FC = () => {
     }
   };
 
-  const handleNext = () => {
-    console.log("Next button clicked!");
+  const handleNext = async () => {
+    setLoading(true);
+    const result = await getComplementOutfit(clothesInImg[selectedClothIndex]);
+    setLoading(false);
+    const oft = processComplementOutfit(result);
+    console.log(oft);
+    setComplementOutfit(oft);
     setStep('result')
   };
+
+  const selectNextDisabled = loading || selectedClothIndex===-1;
 
   return (
     <div className="app-container">
@@ -47,21 +56,38 @@ const InputModal: React.FC = () => {
           <>
             <img src={image} alt="uplaoded outfit" style={{ height: '300px' }} />
             <div style={{ display: 'flex', flexDirection: 'column' }}>
-              {result.map((cloth) => (
-                <div key={cloth.item} style={{ cursor: 'pointer' }}>
-                  <input type='checkbox' />
-                  <label style={{ color: 'black', cursor: 'pointer' }}>{cloth.item}</label>
+              {clothesInImg.map((cloth, index) => (
+                <div key={index} style={{ cursor: 'pointer' }}>
+                  <label style={{ color: 'black', cursor: 'pointer' }}>
+                  <input 
+                  type='radio' 
+                  value={index}
+                  checked={selectedClothIndex === index}
+                  onChange={()=>{
+                    setSelectedClothIndex(index);
+                  }}
+                  />
+                  {cloth.item}
+                  </label>
                 </div>)
               )}
             </div>
-            <button className="next-button" onClick={handleNext} disabled={loading}>Next</button>
+            <button className="next-button" onClick={handleNext} disabled={selectNextDisabled} style={{cursor: selectNextDisabled? 'no-drop' : 'pointer'}}>Next</button>
           </>
         )
       }
       {
         step === 'result' && (
           <>
-            
+            {
+              complementOutfit.map((outfit)=> (
+                <a href={`https://www.google.com/search?tbm=isch&q=${outfit.color}+${outfit.item}`} target='_blank' key={outfit.color + outfit.item}>
+                  <div>
+                      <p>{outfit.item}</p>
+                  </div>
+                </a>
+              ))
+            }
           </>
         )
       }
