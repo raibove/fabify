@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import './style.css';
 import UploadFileButton from '../upload';
 import { Clothing, DetailClothing, getBase64Image, getComplementOutfit, parseClothingData, processBase64, processComplementOutfit, run } from '../../utils';
+import Card from '../cards';
 
 const InputModal: React.FC = () => {
   const [loading, setLoading] = useState<boolean>(false);
@@ -78,17 +79,16 @@ const InputModal: React.FC = () => {
       }
       {
         step === 'result' && (
-          <>
+          <div>
+            <h2 className='recommendation-title'>Here are some reccomendations that will go well with your <em>{clothesInImg[selectedClothIndex].color} {clothesInImg[selectedClothIndex].item}</em></h2>
+          <div style={{display:'flex', flexWrap: 'wrap', gap: '50px', justifyContent: 'center'}}>
             {
               complementOutfit.map((outfit)=> (
-                <a href={`https://www.google.com/search?tbm=isch&q=${outfit.color}+${outfit.item}`} target='_blank' key={outfit.color + outfit.item}>
-                  <div>
-                      <p>{outfit.item}</p>
-                  </div>
-                </a>
+                <Card outfit={outfit} />
               ))
             }
-          </>
+          </div>
+          </div>
         )
       }
     </div>
