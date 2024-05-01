@@ -1,14 +1,16 @@
 import './App.css'
+import Header from './component/header'
 import InputModal from './component/input-modal'
 
 function App() {
 
   return (
-    <>
-      <div>
+    <div className='app'>
+      <Header/>
+      <>
         <InputModal />
-      </div>
-    </>
+      </>
+    </div>
   )
 }
 

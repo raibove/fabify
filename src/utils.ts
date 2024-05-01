@@ -1,7 +1,7 @@
 // node --version # Should be >= 18
 // npm install @google/generative-ai
 
-import { GoogleGenerativeAI, HarmCategory, HarmBlockThreshold } from "@google/generative-ai";
+import { GoogleGenerativeAI, HarmCategory, HarmBlockThreshold, Part } from "@google/generative-ai";
 
 export const processBase64 = (base64: string) => {
     if (base64.split(',').length > 0) {
@@ -47,9 +47,17 @@ export async function run(input: string) {
 
     const base64Image0 = await loadImageAsBuffer('./image0.png');
     const base64Image1 = await loadImageAsBuffer('./image1.png');
-    const base64Image2 = await loadImageAsBuffer('./image2.png');
+    const base64Image2 = await loadImageAsBuffer('./image2.jpg');
     const base64Image3 = await loadImageAsBuffer('./image3.png');
     const base64Image4 = await loadImageAsBuffer('./image4.png');
+    const base64Image5 = await loadImageAsBuffer('./image4.png');
+    const base64Image6 = await loadImageAsBuffer('./image4.png');
+    const base64Image7 = await loadImageAsBuffer('./image4.png');
+    const base64Image8 = await loadImageAsBuffer('./image4.png');
+    const base64Image9 = await loadImageAsBuffer('./image4.png');
+    const base64Image10 = await loadImageAsBuffer('./image4.png');
+    const base64Image11 = await loadImageAsBuffer('./image4.png');
+    const base64Image12 = await loadImageAsBuffer('./image4.png');
 
     const generationConfig = {
         temperature: 0.9,
@@ -77,8 +85,9 @@ export async function run(input: string) {
         },
     ];
 
-    const parts = [
-        { text: "Extract the clothes in the provided image along with color, material used and output them in a list in alphabetical order. If it does not contain any clothes return 'N/A'" },
+
+    const parts : Part[]= [
+        { text: "Extract the clothes in the provided image along with color, material used.\nEach outfit option should include details such as the item name, color, material.\nAlways give JSON array as output.\n\n\nIf it does not contain any clothes return empty array." },
         { text: "Image: " },
         {
             inlineData: {
@@ -86,24 +95,7 @@ export async function run(input: string) {
                 data: base64Image0
             }
         },
-        {
-            text: `List of Clothes:
-            {
-                item: shirt,
-                color: red,
-                material: cotton
-            },
-            {
-                item: pants,
-                color: black,
-                material: polyster / cotton
-            },
-            {
-                item: belt,
-                color: brown,
-                material: leather
-            }`
-        },
+        { text: "List of Clothes: [{\nitem: shirt,\ncolor: red,\nmaterial: cotton\n},\n{\nitem: pants,\ncolor: black,\nmaterial: polyster / cotton\n},\n{\nitem: belt,\ncolor: brown,\nmaterial: leather\n}]" },
         { text: "Image: " },
         {
             inlineData: {
@@ -111,41 +103,23 @@ export async function run(input: string) {
                 data: base64Image1
             }
         },
-        {
-            text: `List of Clothes:
-            {
-                item: kurti,
-                color: orange,
-                material: cotton embroidery
-            }`
-        },
+        { text: "List of Clothes: [{\nitem: kurti,\ncolor: orange,\nmaterial: cotton embroidery\n}]" },
         { text: "Image: " },
         {
             inlineData: {
-                mimeType: "image/png",
+                mimeType: "image/jpeg",
                 data: base64Image2
             }
         },
-        { text: "List of Clothes: n/a" },
+        { text: "List of Clothes: []" },
+        { text: "Image: " },
         {
             inlineData: {
                 mimeType: "image/png",
                 data: base64Image3
             }
         },
-        {
-            text: `List of Clothes:
-            {
-                item: jeans,
-                color: black,
-                material: denim
-            },
-            {
-                item: polo,
-                color: purple,
-                material: cotton pique
-            }`
-        },
+        { text: "List of Clothes: [{item: plazzo, \ncolor: green,\nmaterial: crepe\n}]" },
         { text: "Image: " },
         {
             inlineData: {
@@ -153,14 +127,63 @@ export async function run(input: string) {
                 data: base64Image4
             }
         },
+        { text: "List of Clothes: [{\nitem: shorts,\ncolor: white, \nmaterial: polyester\n}]" },
+        { text: "Image: " },
         {
-            text: `List of Clothes:
-            {
-                item: one piece,
-                color: pink,
-                material: chiffon
-            }`
+            inlineData: {
+                mimeType: "image/png",
+                data: base64Image5
+            }
         },
+        { text: "List of Clothes: [{\ncolor: gold,\nitem: blouse,\nmaterial: net\n}]" },
+        { text: "Image: " },
+        {
+            inlineData: {
+                mimeType: "image/png",
+                data: base64Image6
+            }
+        },
+        { text: "List of Clothes: [{\nitem: sherwani,\ncolor: off white,\nmaterial: art silk\n}, \n{\nitem: dupatta,\ncolor: marron,\nmaterial: silk\n},\n{\nitem: salwar,\ncolor: marron,\nmaterial: silk\n}]" },
+        { text: "Image: " },
+        {
+            inlineData: {
+                mimeType: "image/png",
+                data: base64Image7
+            }
+        },
+        { text: "List of Clothes: [{\nitem: skirt, \ncolor: blue, \nmaterial: scuba\n}]" },
+        { text: "Image: " },
+        {
+            inlineData: {
+                mimeType: "image/png",
+                data: base64Image8
+            }
+        },
+        { text: "List of Clothes: [{\ncolor: white and green,\nitem: crop top,\nmaterial: crepe\n},\n{\nitem: maxi skirt,  \ncolor: white, \nmaterial: crepe\n}]" },
+        { text: "Image: " },
+        {
+            inlineData: {
+                mimeType: "image/png",
+                data: base64Image9
+            }
+        },
+        { text: "List of Clothes: [{\nitem: t-shirt,\ncolor: yellow,\nmaterial: cotton\n}]" },
+        { text: "Image: " },
+        {
+            inlineData: {
+                mimeType: "image/png",
+                data: base64Image10
+            }
+        },
+        { text: "List of Clothes: [{\nitem: skirt,\ncolor: brown,\nmaterial: cotton\n}]" },
+        { text: "Image: " },
+        {
+            inlineData: {
+                mimeType: "image/png",
+                data: base64Image11
+            }
+        },
+        { text: "List of Clothes: [{\nitem: trench coat,\ncolor: brown,\nmaterial: wool\n},\n{\nitem: pants,\ncolor: beige,\nmaterial: cotton\n},\n{\nitem: shoes,\ncolor: black,\nmaterial: leather\n}]" },
         { text: "Image: " },
         {
             inlineData: {
@@ -168,13 +191,11 @@ export async function run(input: string) {
                 data: input
             }
         },
-        {
-            text: `List of Clothes: `
-        },
+        { text: "List of Clothes: " },
     ];
 
     const result = await model.generateContent({
-        contents: [{ role: "user", parts }],
+        contents: [{ role: "user", parts: parts }],
         generationConfig,
         safetySettings,
     });
@@ -277,7 +298,7 @@ export async function getComplementOutfit(input: Clothing) {
         { text: "output: " },
     ];
 
-    
+
     const result = await model.generateContent({
         contents: [{ role: "user", parts }],
         generationConfig,
