@@ -1,14 +1,21 @@
 .file-input-container {
-    display: inline-block;
-    background-color: #3498db;
-    color: #fff;
-    padding: 10px 20px;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-  }
-  
-  .file-input {
-    display: none;
-  }
-  
+  display: inline-block;
+  background-color: black;
+  color: #fff;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  border: 1px solid transparent;
+}
+
+.file-input-container:hover {
+  background-color: #ccc;
+  color: #000;
+  border: 1px solid black;
+  display: block;
+}
+
+.file-input {
+  display: none;
+}

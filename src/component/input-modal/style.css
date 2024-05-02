@@ -19,6 +19,7 @@
 .upload-label {
   font-size: 34px;
   color: black;
+  text-align: center;
 }
 
 .next-button {
@@ -33,20 +34,6 @@
 
 .next-button:hover {
   background-color: #2980b9;
-}
-
-.file-input-container {
-  display: inline-block;
-  background-color: #3498db;
-  color: #000;
-  padding: 10px 20px;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-}
-
-.file-input {
-  display: none;
 }
 
 .loading {

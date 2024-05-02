@@ -41,6 +41,14 @@ const InputModal: React.FC = () => {
 
   const selectNextDisabled = loading || selectedClothIndex === -1;
 
+
+  const handleReset = () => {
+    setStep('upload');
+    setClothesInImg([])
+    setSelectedClothIndex(-1)
+    setComplementOutfit([])
+  }
+
   return (
     <div className="app-container">
       {loading && <div className="loading style-2"><div className="loading-wheel"></div></div>}
@@ -55,25 +63,36 @@ const InputModal: React.FC = () => {
       {
         step === 'select' && (
           <>
-            <img src={image} alt="uplaoded outfit" style={{ height: '300px' }} />
-            <div style={{ display: 'flex', flexDirection: 'column' }}>
-              {clothesInImg.map((cloth, index) => (
-                <div key={index} style={{ cursor: 'pointer' }}>
-                  <label style={{ color: 'black', cursor: 'pointer' }}>
-                    <input
-                      type='radio'
-                      value={index}
-                      checked={selectedClothIndex === index}
-                      onChange={() => {
-                        setSelectedClothIndex(index);
-                      }}
-                    />
-                    {cloth.item}
-                  </label>
-                </div>)
-              )}
-            </div>
-            <button className="next-button" onClick={handleNext} disabled={selectNextDisabled} style={{ cursor: selectNextDisabled ? 'no-drop' : 'pointer' }}>Next</button>
+            {clothesInImg.length === 0 ?
+              <>
+                <label className="upload-label">No outfit found, please try with different image</label>
+                <div style={{ margin: '20px 80px 80px 80px' }}>
+                  <button className="start-again-button" onClick={handleReset}>Try Again</button>
+                </div>
+              </>
+              :
+              <>
+                <img src={image} alt="uplaoded outfit" style={{ height: '300px' }} />
+                <div style={{ display: 'flex', flexDirection: 'column' }}>
+                  {clothesInImg.map((cloth, index) => (
+                    <div key={index} style={{ cursor: 'pointer' }}>
+                      <label style={{ color: 'black', cursor: 'pointer' }}>
+                        <input
+                          type='radio'
+                          value={index}
+                          checked={selectedClothIndex === index}
+                          onChange={() => {
+                            setSelectedClothIndex(index);
+                          }}
+                        />
+                        {cloth.item}
+                      </label>
+                    </div>)
+                  )}
+                </div>
+                <button className="next-button" onClick={handleNext} disabled={selectNextDisabled} style={{ cursor: selectNextDisabled ? 'no-drop' : 'pointer' }}>Next</button>
+              </>
+            }
           </>
         )
       }
@@ -84,19 +103,12 @@ const InputModal: React.FC = () => {
             <div className='card-container'>
               {
                 complementOutfit.map((outfit) => (
-                  <Card outfit={outfit} selectedItem={clothesInImg[selectedClothIndex]} />
+                  <Card key={outfit.color + outfit.item} outfit={outfit} selectedItem={clothesInImg[selectedClothIndex]} />
                 ))
               }
             </div>
-            <div style={{ margin: '20px 80px 80px 80px' }}
-            onClick={()=>{
-              setStep('upload');
-              setClothesInImg([])
-              setSelectedClothIndex(-1)
-              setComplementOutfit([])
-            }}
-            >
-              <button className="start-again-button">Start Again</button>
+            <div style={{ margin: '20px 80px 80px 80px' }}>
+              <button className="start-again-button" onClick={handleReset}>Start Again</button>
             </div>
           </div>
         )

@@ -43,6 +43,15 @@ const loadImageAsBuffer = async (imageUrl: string): Promise<string> => {
     }
 };
 
+function trimTextUntilImage(text: string) {
+    const indexOfImage = text.indexOf("Image:");
+    if (indexOfImage !== -1) {
+        return text.substring(0, indexOfImage);
+    } else {
+        return text;
+    }
+}
+
 export async function run(input: string) {
 
     const genAI = new GoogleGenerativeAI(import.meta.env.VITE_API_KEY);
@@ -203,7 +212,7 @@ export async function run(input: string) {
     });
 
     const response = result.response;
-    return response.text();
+    return trimTextUntilImage(response.text());
 }
 
 
