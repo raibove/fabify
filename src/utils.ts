@@ -3,6 +3,9 @@
 
 import { GoogleGenerativeAI, HarmCategory, HarmBlockThreshold, Part } from "@google/generative-ai";
 
+const OUTFIT_MODEL_NAME = "gemini-1.0-pro-vision-latest"
+const COMPLEMENT_OUTFIT_MODEL="gemini-1.5-pro-latest"
+
 export const processBase64 = (base64: string) => {
     if (base64.split(',').length > 0) {
         return base64.split(',')[1]
@@ -43,7 +46,7 @@ const loadImageAsBuffer = async (imageUrl: string): Promise<string> => {
 export async function run(input: string) {
 
     const genAI = new GoogleGenerativeAI(import.meta.env.VITE_API_KEY);
-    const model = genAI.getGenerativeModel({ model: import.meta.env.VITE_MODEL_NAME });
+    const model = genAI.getGenerativeModel({ model: OUTFIT_MODEL_NAME });
 
     const base64Image0 = await loadImageAsBuffer('./image0.png');
     const base64Image1 = await loadImageAsBuffer('./image1.png');
@@ -251,7 +254,7 @@ export const parseClothingData = (input: string): Clothing[] => {
 
 export async function getComplementOutfit(input: Clothing) {
     const genAI = new GoogleGenerativeAI(import.meta.env.VITE_API_KEY);
-    const model = genAI.getGenerativeModel({ model: import.meta.env.VITE_COMPLEMENT_OUTFIT_MODEL });
+    const model = genAI.getGenerativeModel({ model: COMPLEMENT_OUTFIT_MODEL });
 
     const generationConfig = {
         temperature: 1,
