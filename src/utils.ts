@@ -50,14 +50,13 @@ export async function run(input: string) {
     const base64Image2 = await loadImageAsBuffer('./image2.jpg');
     const base64Image3 = await loadImageAsBuffer('./image3.png');
     const base64Image4 = await loadImageAsBuffer('./image4.png');
-    const base64Image5 = await loadImageAsBuffer('./image4.png');
-    const base64Image6 = await loadImageAsBuffer('./image4.png');
-    const base64Image7 = await loadImageAsBuffer('./image4.png');
-    const base64Image8 = await loadImageAsBuffer('./image4.png');
-    const base64Image9 = await loadImageAsBuffer('./image4.png');
-    const base64Image10 = await loadImageAsBuffer('./image4.png');
-    const base64Image11 = await loadImageAsBuffer('./image4.png');
-    const base64Image12 = await loadImageAsBuffer('./image4.png');
+    const base64Image5 = await loadImageAsBuffer('./image5.png');
+    const base64Image6 = await loadImageAsBuffer('./image6.png');
+    const base64Image7 = await loadImageAsBuffer('./image7.png');
+    const base64Image8 = await loadImageAsBuffer('./image8.png');
+    const base64Image9 = await loadImageAsBuffer('./image9.png');
+    const base64Image10 = await loadImageAsBuffer('./image10.png');
+    const base64Image11 = await loadImageAsBuffer('./image11.png');
 
     const generationConfig = {
         temperature: 0.9,
@@ -86,7 +85,7 @@ export async function run(input: string) {
     ];
 
 
-    const parts : Part[]= [
+    const parts: Part[] = [
         { text: "Extract the clothes in the provided image along with color, material used.\nEach outfit option should include details such as the item name, color, material.\nAlways give JSON array as output.\n\n\nIf it does not contain any clothes return empty array." },
         { text: "Image: " },
         {
@@ -95,7 +94,7 @@ export async function run(input: string) {
                 data: base64Image0
             }
         },
-        { text: "List of Clothes: [{\nitem: shirt,\ncolor: red,\nmaterial: cotton\n},\n{\nitem: pants,\ncolor: black,\nmaterial: polyster / cotton\n},\n{\nitem: belt,\ncolor: brown,\nmaterial: leather\n}]" },
+        { text: "List of Clothes: [{\nitem: shirt,\ncolor: red,\nmaterial: cotton,\nfor: men\n},\n{\nitem: pants,\ncolor: black,\nmaterial: polyster / cotton,\nfor: men\n},\n{\nitem: belt,\ncolor: brown,\nmaterial: leather,\nfor: men\n}]" },
         { text: "Image: " },
         {
             inlineData: {
@@ -103,7 +102,7 @@ export async function run(input: string) {
                 data: base64Image1
             }
         },
-        { text: "List of Clothes: [{\nitem: kurti,\ncolor: orange,\nmaterial: cotton embroidery\n}]" },
+        { text: "List of Clothes: [{\nitem: kurti,\ncolor: orange,\nmaterial: cotton embroidery,\nfor: women\n}]" },
         { text: "Image: " },
         {
             inlineData: {
@@ -119,7 +118,7 @@ export async function run(input: string) {
                 data: base64Image3
             }
         },
-        { text: "List of Clothes: [{item: plazzo, \ncolor: green,\nmaterial: crepe\n}]" },
+        { text: "List of Clothes: [{item: plazzo, \ncolor: green,\nmaterial: crepe,\nfor: women\n}]" },
         { text: "Image: " },
         {
             inlineData: {
@@ -127,7 +126,7 @@ export async function run(input: string) {
                 data: base64Image4
             }
         },
-        { text: "List of Clothes: [{\nitem: shorts,\ncolor: white, \nmaterial: polyester\n}]" },
+        { text: "List of Clothes: [{\nitem: shorts,\ncolor: white, \nmaterial: polyester,\nfor: women\n}]" },
         { text: "Image: " },
         {
             inlineData: {
@@ -135,7 +134,7 @@ export async function run(input: string) {
                 data: base64Image5
             }
         },
-        { text: "List of Clothes: [{\ncolor: gold,\nitem: blouse,\nmaterial: net\n}]" },
+        { text: "List of Clothes: [{\ncolor: gold,\nitem: blouse,\nmaterial: net,\nfor: women\n}]" },
         { text: "Image: " },
         {
             inlineData: {
@@ -143,7 +142,7 @@ export async function run(input: string) {
                 data: base64Image6
             }
         },
-        { text: "List of Clothes: [{\nitem: sherwani,\ncolor: off white,\nmaterial: art silk\n}, \n{\nitem: dupatta,\ncolor: marron,\nmaterial: silk\n},\n{\nitem: salwar,\ncolor: marron,\nmaterial: silk\n}]" },
+        { text: "List of Clothes: [{\nitem: sherwani,\ncolor: off white,\nmaterial: art silk,\nfor: men\n}, \n{\nitem: dupatta,\ncolor: marron,\nmaterial: silk,\nfor: men\n},\n{\nitem: salwar,\ncolor: marron,\nmaterial: silk,\nfor: men\n}]" },
         { text: "Image: " },
         {
             inlineData: {
@@ -151,7 +150,7 @@ export async function run(input: string) {
                 data: base64Image7
             }
         },
-        { text: "List of Clothes: [{\nitem: skirt, \ncolor: blue, \nmaterial: scuba\n}]" },
+        { text: "List of Clothes: [{\nitem: skirt, \ncolor: blue, \nmaterial: scuba,\nfor: women\n}]" },
         { text: "Image: " },
         {
             inlineData: {
@@ -159,7 +158,7 @@ export async function run(input: string) {
                 data: base64Image8
             }
         },
-        { text: "List of Clothes: [{\ncolor: white and green,\nitem: crop top,\nmaterial: crepe\n},\n{\nitem: maxi skirt,  \ncolor: white, \nmaterial: crepe\n}]" },
+        { text: "List of Clothes: [{\ncolor: white and green,\nitem: crop top,\nmaterial: crepe,\nfor: women\n},\n{\nitem: maxi skirt,  \ncolor: white, \nmaterial: crepe,\nfor: women\n}]" },
         { text: "Image: " },
         {
             inlineData: {
@@ -167,7 +166,7 @@ export async function run(input: string) {
                 data: base64Image9
             }
         },
-        { text: "List of Clothes: [{\nitem: t-shirt,\ncolor: yellow,\nmaterial: cotton\n}]" },
+        { text: "List of Clothes: [{\nitem: t-shirt,\ncolor: yellow,\nmaterial: cotton,\nfor: men\n}]" },
         { text: "Image: " },
         {
             inlineData: {
@@ -175,7 +174,7 @@ export async function run(input: string) {
                 data: base64Image10
             }
         },
-        { text: "List of Clothes: [{\nitem: skirt,\ncolor: brown,\nmaterial: cotton\n}]" },
+        { text: "List of Clothes: [{\nitem: skirt,\ncolor: brown,\nmaterial: cotton,\nfor: women\n}]" },
         { text: "Image: " },
         {
             inlineData: {
@@ -183,7 +182,7 @@ export async function run(input: string) {
                 data: base64Image11
             }
         },
-        { text: "List of Clothes: [{\nitem: trench coat,\ncolor: brown,\nmaterial: wool\n},\n{\nitem: pants,\ncolor: beige,\nmaterial: cotton\n},\n{\nitem: shoes,\ncolor: black,\nmaterial: leather\n}]" },
+        { text: "List of Clothes: [{\nitem: trench coat,\ncolor: brown,\nmaterial: wool,\nfor: men\n},\n{\nitem: pants,\ncolor: beige,\nmaterial: cotton,\nfor: men\n},\n{\nitem: shoes,\ncolor: black,\nmaterial: leather,\nfor: men\n}]" },
         { text: "Image: " },
         {
             inlineData: {
@@ -209,6 +208,7 @@ export interface Clothing {
     item: string;
     color: string;
     material: string;
+    for?: string;
 }
 
 export interface DetailClothing extends Clothing {
@@ -232,12 +232,14 @@ export const parseClothingData = (input: string): Clothing[] => {
             const itemMatch = match.match(/item: ([^,]+)/);
             const colorMatch = match.match(/color: ([^,]+)/);
             const materialMatch = match.match(/material: ([^,]+)/);
+            const forMatch = match.match(/for: ([^,]+)/)
 
             if (itemMatch && colorMatch && materialMatch) {
                 clothingArray.push({
                     item: itemMatch[1].trim(),
                     color: colorMatch[1].trim(),
-                    material: materialMatch[1].trim()
+                    material: materialMatch[1].trim(),
+                    for: forMatch ? forMatch[1].trim() : ''
                 });
             }
         });

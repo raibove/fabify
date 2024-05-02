@@ -39,7 +39,7 @@ const InputModal: React.FC = () => {
     setStep('result')
   };
 
-  const selectNextDisabled = loading || selectedClothIndex===-1;
+  const selectNextDisabled = loading || selectedClothIndex === -1;
 
   return (
     <div className="app-container">
@@ -60,34 +60,44 @@ const InputModal: React.FC = () => {
               {clothesInImg.map((cloth, index) => (
                 <div key={index} style={{ cursor: 'pointer' }}>
                   <label style={{ color: 'black', cursor: 'pointer' }}>
-                  <input 
-                  type='radio' 
-                  value={index}
-                  checked={selectedClothIndex === index}
-                  onChange={()=>{
-                    setSelectedClothIndex(index);
-                  }}
-                  />
-                  {cloth.item}
+                    <input
+                      type='radio'
+                      value={index}
+                      checked={selectedClothIndex === index}
+                      onChange={() => {
+                        setSelectedClothIndex(index);
+                      }}
+                    />
+                    {cloth.item}
                   </label>
                 </div>)
               )}
             </div>
-            <button className="next-button" onClick={handleNext} disabled={selectNextDisabled} style={{cursor: selectNextDisabled? 'no-drop' : 'pointer'}}>Next</button>
+            <button className="next-button" onClick={handleNext} disabled={selectNextDisabled} style={{ cursor: selectNextDisabled ? 'no-drop' : 'pointer' }}>Next</button>
           </>
         )
       }
       {
         step === 'result' && (
           <div>
-            <h2 className='recommendation-title'>Here are some reccomendations that will go well with your <em>{clothesInImg[selectedClothIndex].color} {clothesInImg[selectedClothIndex].item}</em></h2>
-          <div style={{display:'flex', flexWrap: 'wrap', gap: '50px', justifyContent: 'center'}}>
-            {
-              complementOutfit.map((outfit)=> (
-                <Card outfit={outfit} />
-              ))
-            }
-          </div>
+            <h2 className='recommendation-title'>Here are some suggestions for items that will complement your <em>{clothesInImg[selectedClothIndex].color} {clothesInImg[selectedClothIndex].item}</em></h2>
+            <div className='card-container'>
+              {
+                complementOutfit.map((outfit) => (
+                  <Card outfit={outfit} selectedItem={clothesInImg[selectedClothIndex]} />
+                ))
+              }
+            </div>
+            <div style={{ margin: '20px 80px 80px 80px' }}
+            onClick={()=>{
+              setStep('upload');
+              setClothesInImg([])
+              setSelectedClothIndex(-1)
+              setComplementOutfit([])
+            }}
+            >
+              <button className="start-again-button">Start Again</button>
+            </div>
           </div>
         )
       }

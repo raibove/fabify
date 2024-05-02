@@ -80,11 +80,37 @@
   border-color: #ccc transparent;
 }
 
-.recommendation-title{
+.recommendation-title {
   color: black;
   font-weight: 400;
   font-size: 25px;
   text-align: center;
+}
+
+.start-again-button {
+  display: block;
+  width: 100%;
+  padding: 0.75rem 1rem;
+  border: 1px solid #000000;
+  border-radius: 0.25rem;
+  background-color: #000;
+  color: #fff;
+  font-size: 1rem;
+  font-weight: bold;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.start-again-button:hover {
+  background-color: transparent;
+  color: #000;
+}
+
+.card-container {
+  display: flex;
+  flex-wrap: wrap; 
+  column-gap: 50px; 
+  row-gap: 25px;
+  justify-content:center;
 }
 
 @-webkit-keyframes spin {
@@ -96,4 +122,3 @@
     -webkit-transform: rotate(-360deg);
   }
 }
-
